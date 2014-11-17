@@ -123,23 +123,23 @@ void OpenQpritz::stop()
 void OpenQpritz::spritz()
 {
     if (spritzLoopNumber < m_wordList.count()) {
-        m_wordTmp = m_wordList[spritzLoopNumber];
+        m_wordTemp = m_wordList[spritzLoopNumber];
         wordToShow = processWordForSpritz(m_wordList[spritzLoopNumber]);
         emit outputSpritzWord(wordToShow);
 
-        qDebug("%d\t" + m_wordTmp.toLatin1(), spritzLoopNumber);
+        qDebug("%d\t" + m_wordTemp.toLatin1(), spritzLoopNumber);
 
         spritzLoopNumber += 1;
     } else {
-        m_wordTmp = "";
-        wordToShow = m_wordTmp;
-        emit outputSpritzWord(m_wordTmp);
+        m_wordTemp = "";
+        wordToShow = m_wordTemp;
+        emit outputSpritzWord(m_wordTemp);
 
-        qDebug("%d\t" + m_wordTmp.toLatin1(), spritzLoopNumber);
+        qDebug("%d\t" + m_wordTemp.toLatin1(), spritzLoopNumber);
 
         m_timer->stop();
         spritzLoopNumber = 0;
-        qDebug("%d\t" + m_wordTmp.toLatin1(), spritzLoopNumber);
+        qDebug("%d\t" + m_wordTemp.toLatin1(), spritzLoopNumber);
 
         disconnect(m_timer, SIGNAL(timeout()),
                    this, SLOT(spritz()));

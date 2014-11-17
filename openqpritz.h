@@ -16,7 +16,7 @@ public:
 
     QString m_sentence;
     QStringList m_wordList;
-    QString m_wordTmp;
+    QString m_wordTemp;
     QString wordToShow;
     int m_spritzWpmNumber;
 
