@@ -44,23 +44,27 @@ QStringList OpenQpritz::makeWordList(QString sentence)
 // spritzの開始 / start spritz
 void OpenQpritz::start(int intervalNumber)
 {
-    if (intervalNumber > 0) {
-        qDebug("start(%d)", intervalNumber);
+    if (m_spritzWpmNumber != 0) {
+        if (intervalNumber > 0) {
+            qDebug("start(%d)", intervalNumber);
 
-        startupLoopNumber = intervalNumber + 1;
-        connect(m_timer, SIGNAL(timeout()),
-                this, SLOT(startup()));
-
-        m_timer->start(60 * 1000 / m_spritzWpmNumber);
-    } else {
-        qDebug("spritz");
-
-        if (m_spritzWpmNumber) {
+            startupLoopNumber = intervalNumber + 1;
             connect(m_timer, SIGNAL(timeout()),
-                    this, SLOT(spritz()));
+                    this, SLOT(startup()));
 
             m_timer->start(60 * 1000 / m_spritzWpmNumber);
+        } else {
+            qDebug("spritz");
+
+            if (m_spritzWpmNumber) {
+                connect(m_timer, SIGNAL(timeout()),
+                        this, SLOT(spritz()));
+
+                m_timer->start(60 * 1000 / m_spritzWpmNumber);
+            }
         }
+    } else {
+        pause();
     }
 }
 
