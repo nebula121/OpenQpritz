@@ -156,30 +156,17 @@ QString OpenQpritz::processWordForSpritz(QString word)
 
     int bestLetter = 1;
 
-    switch (length) {
-    case 1:
-        bestLetter = 1; // first
-        break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-        bestLetter = 2; // second
-        break;
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-        bestLetter = 3; // third
-        break;
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-        bestLetter = 4; // fourth
-        break;
-    default:
+    if (length < 14) {
+        bestLetter = (length + 2) / 4 + 1;
+
+        // length = 1     -> bestLetter = 1
+        // length = 2~5   -> bestLetter = 2
+        // length = 6~9   -> bestLetter = 3
+        // length = 10~13 -> bestLetter = 4
+    } else {
         bestLetter = 5;
+
+        // length = 14~   -> bestLetter = (length + 2) / 4 + 1;
     }
 
     QString frontSpacer = QString(".").repeated(11 - bestLetter);
